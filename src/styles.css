@@ -1,0 +1,170 @@
+/* Google Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Global */
+html,
+body,
+[class*="css"] {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* Main Title */
+h1 {
+    background: linear-gradient(135deg, #6C63FF 0%, #48C6EF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700 !important;
+}
+
+/* Chat Bubbles */
+.chat-bubble {
+    padding: 16px 20px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    max-width: 85%;
+    line-height: 1.6;
+    font-size: 15px;
+    animation: slideIn 0.3s ease-out;
+}
+
+.agent-msg {
+    background: linear-gradient(135deg, #6C63FF 0%, #5A54D1 100%);
+    color: #FFFFFF;
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+    box-shadow: 0 4px 15px rgba(108, 99, 255, 0.25);
+}
+
+.user-msg {
+    background-color: #F8F9FB;
+    color: #1A1A2E;
+    margin-right: auto;
+    border: 1px solid #E8ECF0;
+    border-bottom-left-radius: 4px;
+}
+
+.system-msg {
+    background-color: transparent;
+    color: #8899A6;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    margin: 20px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Metric Cards */
+.metric-card {
+    background: #FFFFFF;
+    padding: 24px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    border: 1px solid #E8ECF0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.metric-card h2 {
+    margin: 0 0 8px 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1A1A2E;
+}
+
+.metric-card h3 {
+    margin: 0 0 12px 0;
+    font-size: 1.1rem;
+    color: #1A1A2E;
+    font-weight: 600;
+}
+
+.metric-card p {
+    color: #6B7280;
+    margin: 5px 0 0 0;
+    font-size: 0.9rem;
+}
+
+/* Progress Bar */
+.progress-bar-container {
+    background-color: #F0F2F6;
+    border-radius: 8px;
+    height: 10px;
+    width: 100%;
+    margin-top: 12px;
+    overflow: hidden;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #F8F9FB 0%, #FFFFFF 100%);
+    border-right: 1px solid #E8ECF0;
+}
+
+[data-testid="stSidebar"] h2 {
+    color: #6C63FF !important;
+}
+
+/* Buttons */
+div.stButton>button {
+    background: linear-gradient(135deg, #6C63FF 0%, #5A54D1 100%);
+    color: white;
+    border-radius: 12px;
+    border: none;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+    transition: all 0.2s ease;
+}
+
+div.stButton>button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
+}
+
+/* Success Box */
+div.stSuccess {
+    background-color: #E8F5E9 !important;
+    border-left: 4px solid #43A047 !important;
+    border-radius: 8px;
+}
+
+/* Expander */
+div.stExpander {
+    border: 1px solid #E8ECF0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Animations */
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Info Box */
+div.stInfo {
+    background-color: #EEF2FF !important;
+    border-left: 4px solid #6C63FF !important;
+    border-radius: 8px;
+}
+
+/* Spinner */
+div.stSpinner>div {
+    border-color: #6C63FF !important;
+}
