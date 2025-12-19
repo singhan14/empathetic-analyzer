@@ -29,30 +29,28 @@ def load_generator():
 generator = load_generator()
 analyzer = load_analyzer()
 
-# --- Callback Handler (Fast & Bug-Free) ---
-def handle_input():
-    """Handle user input, generate response, and clear field instantly."""
-    user_text = st.session_state.u_in.strip()
-    if user_text:
-        # 1. Add User Message
-        st.session_state.conversation.append(Message("borrower", user_text))
-        
-        # 2. Analyze & Generate Response (Instant)
-        borrower_msgs = [{"role": m.role, "content": m.content} for m in st.session_state.conversation if m.role == "borrower"]
-        analysis = analyzer.classify_intent(borrower_msgs)
-        intent = analysis[0]
-        
-        # 3. Generate Agent Response
-        response = analyzer.generate_agent_response(intent, user_text)
-        st.session_state.conversation.append(Message("agent", response))
-        
-        # 4. Clear Input (Must set key to empty)
-        st.session_state.u_in = ""
+# --- Logic: Process Message ---
+def process_message(text):
+    """Core logic to add message, run analysis, and generate response."""
+    if not text.strip(): return
 
-def load_quick_reply(text):
-    """Load a quick reply into the conversation."""
-    st.session_state.u_in = text
-    handle_input()
+    # 1. Add User Message
+    st.session_state.conversation.append(Message("borrower", text))
+    
+    # 2. Analyze
+    borrower_msgs = [{"role": m.role, "content": m.content} for m in st.session_state.conversation if m.role == "borrower"]
+    analysis = analyzer.classify_intent(borrower_msgs)
+    intent = analysis[0]
+    
+    # 3. Generate Agent Response
+    response = analyzer.generate_agent_response(intent, text)
+    st.session_state.conversation.append(Message("agent", response))
+
+def on_text_input_change():
+    """Callback for text input field."""
+    text = st.session_state.u_in
+    process_message(text)
+    st.session_state.u_in = ""  # Clear the input field
 
 # --- Sidebar ---
 with st.sidebar:
@@ -83,6 +81,7 @@ with st.sidebar:
         
     st.markdown("---")
     st.markdown("### 👨‍💻 Built by **Singhan Yadav**")
+    st.caption("Advanced NLP + Behavioral Economics")
 
 # --- Main Content ---
 st.markdown("# 🟣 Riverline Empathetic Analyzer")
@@ -108,22 +107,35 @@ with col1:
 
     st.markdown("---")
     
-    # Input Area with Callback (Enter Key Works Instantly)
+    # Input Area (Callback driven)
     st.text_input(
         "Message", 
         placeholder="Type here and press Enter...", 
         label_visibility="collapsed", 
         key="u_in",
-        on_change=handle_input
+        on_change=on_text_input_change
     )
     
-    # Quick Actions (Instant)
+    # Quick Actions (Direct execution, no widget state manipulation)
     st.markdown("**Quick Messages:**")
     q1, q2, q3, q4 = st.columns(4)
-    if q1.button("😟 Job Loss"): load_quick_reply("I lost my job recently and cannot pay.")
-    if q2.button("🏥 Medical"): load_quick_reply("I have a medical emergency.")
-    if q3.button("😠 Refusal"): load_quick_reply("Stop calling me, I will not pay!")
-    if q4.button("🤔 Constraint"): load_quick_reply("I have financial constraints right now.")
+    
+    # Use flags to trigger processing after button click
+    if q1.button("😟 Job Loss"):
+        process_message("I lost my job recently and cannot pay.")
+        st.rerun()
+        
+    if q2.button("🏥 Medical"):
+        process_message("I have a medical emergency.")
+        st.rerun()
+        
+    if q3.button("😠 Refusal"):
+        process_message("Stop calling me, I will not pay!")
+        st.rerun()
+        
+    if q4.button("🤔 Constraint"):
+        process_message("I have financial constraints right now.")
+        st.rerun()
 
 
 # --- Right Column: Analysis ---
